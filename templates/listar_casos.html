@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Casos</title>
+    <link rel="stylesheet" href="../static/listar_casos.css">
+    <script src="../static/js/funciones.js"></script>
+</head>
+<body>
+ 
+    <div>
+        <a href="/dashboard">
+            <svg width="40" height="40" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                <path d="M3.57813 12.4981C3.5777 12.6905 3.65086 12.8831 3.79761 13.0299L9.7936 19.0301C10.0864 19.3231 10.5613 19.3233 10.8543 19.0305C11.1473 18.7377 11.1474 18.2629 10.8546 17.9699L6.13418 13.2461L20.3295 13.2461C20.7437 13.2461 21.0795 12.9103 21.0795 12.4961C21.0795 12.0819 20.7437 11.7461 20.3295 11.7461L6.14168 11.7461L10.8546 7.03016C11.1474 6.73718 11.1473 6.2623 10.8543 5.9695C10.5613 5.6767 10.0864 5.67685 9.79362 5.96984L3.84392 11.9233C3.68134 12.0609 3.57812 12.2664 3.57812 12.4961L3.57813 12.4981Z" fill="#000000"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Contenedor principal -->
+    <main id="padre_ppal">
+
+        <!-- Formulario de búsqueda -->
+        <form id="buscar_estudiante" action="{{ url_for('lista_casos') }}" method="GET">
+            <div id="caja_horizontal">
+                <input type="text" id="barra_busqueda" name="documento" placeholder="documento del estudiante" minlength="6" maxlength="10" pattern="[0-9]{6,10}" required>
+                <button  id="btn_buscar" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Tabla de casos -->
+        <table>
+            <thead>
+                <tr id="titulos">
+                    <th># Caso</th>
+                    <th>Documento</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Fecha Apertura</th>
+                    <th>Fecha Cierre</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for caso in casos %}
+                <tr id="informacion">
+                    <td><p>Caso #</p>{{ caso.num_caso }}</td>
+                    <td><p>Documento:</p>{{ caso.documento }}</td>
+                    <td><p>Tipo:</p>{{ caso.caso_tipo }}</td>
+                    <td><p>Descripción:</p>{{ caso.caso_descripcion }}</td>
+                    <td><p>Fecha Apertura:</p>{{ caso.caso_fecha_apertura }}</td>
+                    <td><p>Fecha Cierre:</p>{{ caso.caso_fecha_cierre or '---' }}</td>
+                    <td><p>Estado:</p>{{ caso.caso_estado }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
+                        <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
+                        {% if session['rol'] == 'administrador' %}
+                        <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
+                            
+                            <button type="submit" id="btn_cerrar_caso">Cerrar caso</button>
+                        </form>
+                        <form action="{{ url_for('r_eliminar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('¿Deseas eliminar este caso?')">Eliminar
+                            </button>
+                        </form>
+
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+</body>
+</html>

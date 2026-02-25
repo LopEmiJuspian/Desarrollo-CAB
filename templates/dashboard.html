@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Gestión Institucional</title>
+  <link rel="stylesheet" href="../static/dashboard.css">
+</head>
+
+<body> 
+
+<a href="{{ url_for('cerrarSesion') }}" id="cerrar_sesion">Cerrar Sesión</a>
+
+  <main id="padre_ppal">
+
+    <h1>Menú</h1>
+
+    <div class="cont_contenido">
+      <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
+      <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
+      <a href="{{ url_for('consultarEstudiantes') }}">Listado de estudiantes</a>
+
+    {% if rol == "administrador" or rol == "directivo" %}
+      <a href="{{ url_for('consultarUsuario') }}">Listado de profesionales</a>
+    {% endif %}
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,259 @@
+:root {
+    --primary: #4DA6FF;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --bg: #f4f6f9;
+    --card: #F8F9FA;
+    --text: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body { 
+    background: var(--bg);
+    padding: 15px;
+    color: var(--text);
+}
+
+/* HEADER */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.topbar h1 {
+    font-size: 20px;
+    color: black;
+}
+
+#recoger_busqueda{
+    position: relative;
+    width: 300px;
+}
+
+#recoger_busqueda svg {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+#barra_busqueda {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#recoger_busqueda {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #e5dede;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 40px;
+}
+
+    #recoger_busqueda #barra_busqueda {
+        padding-left: 50px;
+        outline: none;
+    }
+
+.btn-add {
+    background: var(--primary);
+    color: white;
+    padding: 0 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* 📱 TARJETAS MOBILE */
+.user-list {
+    display: grid;
+    gap: 15px;
+}
+
+#informacion {
+    background: var(--card);
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+
+#informacion h2 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#informacion p {
+    font-size: 14px;
+    margin: 2px 0;
+}
+
+.role {
+    display: inline-block;
+    color: black;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+        background: #e5dede;
+    font-weight: 550;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-edit {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-delete {
+    background: var(--danger);
+    color: white;
+    padding: 3px;
+}
+
+/* 💻 TABLA ESCRITORIO */
+.table-container {
+    display: none;
+}
+
+@media (min-width: 768px) {
+
+    #recoger_busqueda {
+        width: 50%;
+    }
+
+    .user-list {
+        display: none;
+    }
+
+    .table-container {
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.63);
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    th {
+        background: var(--primary);
+        color: white;
+    }
+
+    th:nth-child(1) {
+        width: 15%;
+    }
+
+    th:nth-child(2) {
+        width: 20%;
+    }
+
+    th:nth-child(3) {
+        width: 15%;
+    }
+
+    th:nth-child(4) {
+        width: 22%;
+    }
+
+    th:nth-child(5) {
+        width: 12%;
+    }
+
+    th:nth-child(6) {
+        width: 16%;
+    }
+
+    tr:nth-child(even) {
+        background: #f2f2f2;
+    }
+
+
+    td:nth-child(1) {
+        width: 15%;
+    }
+
+    td:nth-child(2) {
+        width: 20%;
+    }
+
+    td:nth-child(3) {
+        width: 15%;
+    }
+
+    td:nth-child(4) {
+        width: 22%;
+    }
+
+    td:nth-child(5) {
+        width: 12%;
+    }
+
+    td:nth-child(6) {
+        width: 16%;
+    }
+
+    .table-actions a,
+    .table-actions form {
+        display: inline-block;
+    }
+
+    .edit-table {
+        background: var(--primary);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 13px;
+        text-decoration: none;
+        margin-bottom: 10px;
+    }
+
+    .delete-table {
+        background: var(--danger);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 13px;
+        border: none;
+        cursor: pointer;
+        margin-left: 2px;
+    }
+}

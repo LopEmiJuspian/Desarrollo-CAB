@@ -1,0 +1,85 @@
+from flask import request, render_template, redirect, url_for, session, flash, get_flashed_messages
+from programa import programa
+from datetime import datetime
+import mysql.connector
+from models.casos import *
+
+ 
+@programa.route("/casos/nuevo", methods=["GET"])
+def mostrar_casos():
+    return render_template("/casos.html")
+
+@programa.route("/casos", methods=["POST"])
+def guardar_caso():
+    documento = request.form["documento"]
+    caso_tipo = request.form["caso_tipo"]
+    caso_descripcion = request.form["caso_descripcion"]
+    caso_fecha_apertura = datetime.now().strftime("%Y-%m-%d")
+    doc_pronal = request.form["doc_pronal"]
+
+    # Verificamos que el estudiante esté activo
+    if not estudiante_activo(documento):
+        flash("El estudiante no existe o está retirado. No se puede registrar el caso.", "error")
+        return render_template("casos.html", document=documento, caso_tipo=caso_tipo, caso_descripcion=caso_descripcion)
+
+    nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_pronal)
+    flash("Caso registrado con éxito.", "success")
+    return render_template("casos.html")
+
+@programa.route("/casos", methods=["GET"])
+def lista_casos():
+    documento = request.args.get("documento")
+    if documento:
+        casos = obtener_caso_doc(documento)
+    else:
+        casos = todos_casos_listados()
+    
+    return render_template("listar_casos.html", casos=casos)
+
+#con esta ruta manipulamos la visualizacion de los detalles del caso, redirige a itervenciones.html
+@programa.route("/casos/<int:num_caso>", methods=["GET"])
+def ver_caso(num_caso):
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor = conexion.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM casos WHERE num_caso = %s", (num_caso,))
+    caso=cursor.fetchone()
+
+    cursor.execute("SELECT * FROM intervenciones WHERE num_caso = %s ORDER BY fecha DESC", (num_caso,) )
+    intervenciones=cursor.fetchall()
+
+    hoy= datetime.now().date()
+    for intervencion in intervenciones:
+        fecha_limite = intervencion["int_fecha_compromiso"] 
+        if fecha_limite:
+            fecha_c = fecha_limite 
+            if fecha_c > hoy:
+                intervencion["estado_calculado"] = "Pendiente"
+            elif fecha_c == hoy:
+                intervencion["estado_calculado"] = "Próxima a vencer"
+            else:
+                intervencion["estado_calculado"] = "Incumplida"
+        else: 
+            intervencion["estado_calculado"] = "Sin compromiso"
+
+    cursor.close()
+    conexion.close()
+    return render_template("detalle_caso.html", caso=caso, intervenciones=intervenciones)
+
+#esta ruta cierra el caso
+@programa.route("/casos/<int:num_caso>/cerrar", methods=["POST"])
+def r_cerrar_caso(num_caso):
+    if session["rol"] != "administrador":
+        return render_template("casos.html", msg ="No tienes permisos para cerrar casos.")
+    fecha_cierre = datetime.now().strftime("%Y-%m-%d")
+    cerrar_caso(num_caso, fecha_cierre)
+    return redirect(url_for("lista_casos"))
+
+
+@programa.route("/casos/<int:num_caso>/eliminar", methods=(["POST"]))
+def r_eliminar_caso(num_caso):
+    if session["rol"] != "administrador":
+        flash("No tienes permisos para eliminar casos.", "error")
+        return redirect(url_for("lista_casos"))
+    eliminar_caso(num_caso)
+    flash("Se eliminó el caso correctamente.", "success")
+    return redirect(url_for("lista_casos"))

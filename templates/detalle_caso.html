@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/detalle_caso.css">
+  <script src="../static/js/funciones.js"></script>
+  <title>Detalle del Caso</title>
+</head>
+<body> 
+  <!-- Contenedor principal -->
+  <div id="padre_ppal">
+    
+    <h1>Detalle del Caso #{{ caso.num_caso }}</h1>
+
+    <!-- Caja con la información del caso -->
+    <div class="caja">
+      <p><strong>Documento estudiante:</strong> {{ caso.documento }}</p>
+      <p><strong>Tipo de caso:</strong> {{ caso.caso_tipo }}</p>
+      <p><strong>Descripción:</strong> {{ caso.caso_descripcion }}</p>
+      <p><strong>Fecha apertura:</strong> {{ caso.caso_fecha_apertura }}</p>
+      <p><strong>Fecha cierre:</strong> {{ caso.caso_fecha_cierre or '---' }}</p>
+      <p><strong>Estado:</strong> {{ caso.caso_estado }}</p>
+    </div>
+
+    <!-- Caja con las intervenciones -->
+    <div class="caja">
+      <h2>Intervenciones</h2>
+      {% if intervenciones %}
+      <table border="1" style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Profesional</th>
+            <th>Descripción</th>
+            <th>Compromiso</th>
+            <th>Estado compromiso</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for intervencion in intervenciones %}
+          <tr>
+            <td>{{ intervencion.fecha }}</td>
+            <td>{{ intervencion.doc_pronal }}</td>
+            <td>{{ intervencion.descripcion }}</td>
+            <td>{{ intervencion.int_compromiso }}</td>
+            <td><p> {{ intervencion.estado_calculado }}</p></td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No hay intervenciones registradas.</p>
+      {% endif %}
+    </div>
+
+    <!-- Caja con acciones -->
+    <div class="caja cont_contenido">
+      {% if session['rol'] in ['docente','coordinacion','profesional_apoyo','administrador'] and caso.caso_estado == 'abierto' %}
+      <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
+      {% endif %}
+
+      {% if session['rol'] == 'administrador' and caso.caso_estado == 'abierto' %}
+      <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
+        <button type="submit" class="cerrar_caso">Cerrar caso</button>
+      </form>
+      {% endif %}
+    </div>
+
+    <div id="ventana_flotante">
+
+        <div id="cont_ventana">
+            <p>¿Deseas cerrar el caso?</p>
+            <div id="opciones">
+                <div id="boton_cancelar">
+                    <label for="">Cancelar</label>
+                </div>
+                <div id="boton_cerrar">
+                    <label for="">Cerrar</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+  </div>
+</body>
+</html>

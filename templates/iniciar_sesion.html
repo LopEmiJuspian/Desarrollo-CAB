@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../static/login.css">
+
+ 
+</head>
+<body>
+    
+    <main id="padre_ppal">
+
+        <form action="/login" method="post" name="form_acceso" id="form_acceso">
+            <div id="cont_contenido">
+                <div class="cont_contenido" id="Nombre">
+                    <input type="text"
+                    name="documento"
+                    maxlength="746"
+                    minlength="7"
+                    pattern="^[A-Za-z0-9]{7,25}$"
+                    placeholder="Documento de identidad"
+                    required>
+                </div>
+
+                <div class="cont_contenido" id="Contrasena">
+                    <input type="password"
+                    name="contrasena"
+                    maxlength="746"
+                    minlength="5"
+                    pattern="^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s\-\.'’!@#$%^&*()_+={}[\]|;:>,.?/~`]{1,746}$"
+                    placeholder="Contraseña"
+                    required>
+                </div>
+
+                <button type="submit" id="btn_Entrar">Iniciar Sesión</button>
+
+            </div>
+        </form>
+
+    </main>
+
+        <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <script>
+        Swal.fire({
+            icon: '{{ "error" if category=="error" else "success" }}',
+            title: '{{ message }}',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '{{ "#d33" if category=="error" else "#4DA6FF" }}'
+        });
+        </script>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+</body>
+</html>
