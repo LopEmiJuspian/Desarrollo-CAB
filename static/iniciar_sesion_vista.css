@@ -1,0 +1,117 @@
+*{
+    box-sizing: border-box;
+    transition: 0.5s;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+#caja_padre {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
+
+    #caja_padre #fondo_login {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    #caja_padre #caja_contenedora {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 45%;
+        width: 80%;
+        background: white;
+        border-radius: 12px;
+    }
+
+    #caja_contenedora #caja_imagen {
+        display: none;
+    }
+
+    #caja_contenedora #zona_login {
+        padding: 15px;
+        width: 100%;
+    }
+
+        #zona_login h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        #zona_login #recoger_datos {
+            flex-direction: column;
+            display: flex;
+        }
+
+            #recoger_datos label {
+                margin: 30px 0 5px 0;
+            }
+
+            #recoger_datos input {
+                border: 1px solid #151515;
+                padding: 5px;
+                border-radius: 5px;
+                height: 35px;
+            }
+
+            #recoger_datos #btn_iniciar_sesion {
+                margin: 50px 0 0 0;
+                border: none;
+                background: #39A900;
+                border-radius: 8px;
+                height: 40px;
+                color: white;
+                font-weight: 500;
+            }
+
+            #recoger_datos #btn_iniciar_sesion:hover {
+                background: #007832;
+            }
+
+@media screen and (min-width: 650px) {
+
+    #caja_padre #caja_contenedora {
+        height: 40%;
+        width: 50%;
+        top: 60%;
+        background: white;
+        border-radius: 12px;
+    }
+
+        #zona_login h1 {
+            font-size: 2rem;
+        }
+
+        #recoger_datos label {
+            margin: 50px 0 5px 0;
+            font-size: 15px;
+        }
+
+        #recoger_datos input {
+            height: 40px;
+            font-size: 15px;
+        }
+
+        #recoger_datos #btn_iniciar_sesion {
+            margin: 70px 0 0 0;
+            height: 45px;
+            font-size: 15px;
+        }
+}
+
+
