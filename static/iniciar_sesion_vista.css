@@ -58,6 +58,11 @@ body {
             display: flex;
         }
 
+            #recoger_datos #momento {
+                flex-direction: column;
+                display: flex;
+            }
+
             #recoger_datos label {
                 margin: 30px 0 5px 0;
             }

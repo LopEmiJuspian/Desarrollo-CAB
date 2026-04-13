@@ -27,13 +27,21 @@
 
                 <form id="recoger_datos" action="" method="post">
 
-                    <label for="">Numero de documento</label>
+                    <div id="momento">
 
-                    <input type="text" name="documento" id="documento" placeholder="Ingrese su numero de documento" pattern="[0-9a-zA-Z]{6,10}" minlength="6" maxlength="10" title="Ingresa un numero de documento valido" required>
+                        <label>Numero de documento</label>
 
-                    <label for="">Contraseña</label>
+                        <input type="text" name="documento" id="documento" placeholder="Ingrese su numero de documento" pattern="[0-9a-zA-Z]{6,10}" minlength="6" maxlength="10" title="Ingresa un numero de documento valido" required>
 
-                    <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña" pattern="[A-Za-z\d#$%&._]{6,16}" minlength="6" maxlength="16" title="Ingresa una contraseña valida" required>
+                    </div>  
+
+                    <div id="momento">
+
+                        <label>Contraseña</label>
+
+                        <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña" pattern="[A-Za-z\d#$%&._]{6,16}" minlength="6" maxlength="16" title="Ingresa una contraseña valida" required>
+
+                    </div>
 
                     <button type="submit" id="btn_iniciar_sesion" name="btn_iniciar_sesion">Iniciar sesión</button>
 
