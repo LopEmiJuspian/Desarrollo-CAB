@@ -25,7 +25,7 @@
 
                 <h1>Iniciar sesión</h1>
 
-                <form id="recoger_datos" action="" method="post">
+                <form id="recoger_datos" action="/login" method="post">
 
                     <div id="momento">
 
