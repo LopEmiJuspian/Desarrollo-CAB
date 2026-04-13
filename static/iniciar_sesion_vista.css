@@ -58,6 +58,11 @@ body {
             display: flex;
         }
 
+            #recoger_datos #momento {
+                flex-direction: column;
+                display: flex;
+            }
+
             #recoger_datos label {
                 margin: 30px 0 5px 0;
             }
@@ -112,6 +117,59 @@ body {
             height: 45px;
             font-size: 15px;
         }
+}
+
+@media screen and (min-width: 1024px) {
+
+    #caja_padre #caja_contenedora {
+        height: 80%;
+        width: 80%;
+        flex-direction: row;
+        top: 50%;
+    }
+
+        #zona_login h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+    #caja_contenedora #caja_imagen {
+        flex: 1;
+        display: flex;
+    }
+
+        #caja_imagen #imagen_discapacidad {
+            border-radius: 12px;
+            width: 100%;
+        }
+
+    #caja_contenedora #zona_login {
+        flex: 1;
+        padding: 0;
+        padding-top: 10%;
+        border-left: 2px solid #f1f1f1;
+    }
+
+        #zona_login #recoger_datos {
+            padding: 0 80px;
+        }
+
+            #recoger_datos label {
+                margin: 60px 0 5px 0;
+            }
+
+            #recoger_datos #btn_iniciar_sesion {
+                margin: 70px 0 0 0;
+                height: 50px;
+                font-size: 15px;
+                width: 70%;
+                left: 50%;
+                transform: translateX(-50%);
+                position: relative;
+                font-weight: 600;
+            }
+
+    
 }
 
 
