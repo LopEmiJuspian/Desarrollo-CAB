@@ -35,6 +35,6 @@ def login():
                 flash("Contraseña incorrecta.", "error")
                 return redirect(url_for("login"))  # 🔹 Redirige después de POST
     else:
-        return render_template("iniciar_sesion.html")
+        return render_template("iniciar_sesion_vista.php")
 
 
