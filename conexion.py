@@ -5,13 +5,18 @@ import hashlib
 
 # Función para obtener conexión a la BD
 def conexion():
-    return mysql.connector.connect(
-        host="localhost",
-        port="3306",
-        user="root",
-        password="",
-        database="visionarios"
-    ) 
+    
+
+    config = {
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'port': 3306,
+    'database': 'visionarios',
+    'raise_on_warnings': True,
+    }
+
+    return mysql.connector.connect(**config) 
 
 # Función para obtener cursor con resultados en formato diccionario
 def cursor(conn):
